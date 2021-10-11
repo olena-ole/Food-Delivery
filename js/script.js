@@ -92,4 +92,60 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     setClock('.timer', deadline);
+
+    //Modal
+
+    const modalTrigger = document.querySelectorAll('[data-modal]'),
+        modal = document.querySelector('.modal'),
+        modalCloseBtn = document.querySelector('[data-close]');
+
+    function closeModal() {
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+        //modal.classList.toggle('show');
+        document.body.style.overflow = '';
+    }
+
+    modalTrigger.forEach(btn => {
+        btn.addEventListener('click', () => {
+            modal.classList.add('show');
+            modal.classList.remove('hide');
+            //modal.classList.toggle('show');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    modalCloseBtn.addEventListener('click', () => {
+        closeModal();
+    });
+
+    //Hiding modal window after click on background
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    //Closing modal window after clicking on ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape' && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
+
+    //My variant of modal
+    /* const modalTrigger = document.querySelectorAll('[data-modal]'),
+        modalClose = document.querySelector('[data-close]'),
+        modalWindow = document.querySelector('.modal');
+
+    modalTrigger.forEach(btn => {
+        btn.addEventListener('click', () => {
+            modalWindow.style.display = 'block';
+        });
+    });
+
+    modalClose.addEventListener('click', () => {
+        modalWindow.style.display = 'none';
+    }); */
+    
 });
