@@ -365,6 +365,13 @@ window.addEventListener('DOMContentLoaded', () => {
         } else {
             current.textContent = slideIndex;
         }
+
+        // my variant: added for navigation
+        allDots.forEach((item) => {
+            item.classList.remove('active-dot');
+        });
+
+        allDots[slideIndex - 1].classList.add('active-dot');
     });
 
     prev.addEventListener('click', () => {
@@ -387,7 +394,54 @@ window.addEventListener('DOMContentLoaded', () => {
         } else {
             current.textContent = slideIndex;
         }
+
+        //My variant: added for navigation
+        allDots.forEach((item) => {
+            item.classList.remove('active-dot');
+        });
+
+        allDots[slideIndex - 1].classList.add('active-dot'); 
     });
+
+    //My variant: dots for sliders navigation
+    const parent = document.querySelector('.offer__slider');
+    let dot;
+
+    parent.style.position = 'relative';
+    const dotsWrapper = document.createElement('div');
+    dotsWrapper.classList.add('carousel-indicators');
+    parent.append(dotsWrapper);
+
+    slides.forEach(() => {
+        dot = document.createElement('div');
+        dot.classList.add('dot');
+        dotsWrapper.append(dot);
+    });
+
+    const allDots = document.querySelectorAll('.dot');
+    allDots[slideIndex - 1].classList.add("active-dot");
+
+    dotsWrapper.addEventListener('click', (e) => {
+        if (e.target && e.target.classList.contains('dot')) {
+            allDots.forEach((item) => {
+                item.classList.remove('active-dot');
+            });
+            e.target.classList.add('active-dot');
+            allDots.forEach((item, i) => {
+                if (item == e.target) {
+                    offset = +width.slice(0, width.length - 2) * i;
+                    slidesField.style.transform = `translateX(-${offset}px)`;
+                    slideIndex = i + 1;
+                    if (slideIndex < 10) {
+                        current.textContent = `0${slideIndex}`;
+                    } else {
+                        current.textContent = slideIndex;
+                    }
+                }
+            });   
+        } 
+    });
+
     //Slider - Regular
     //Petrichenko variant
     /* showSlides(slideIndex);
