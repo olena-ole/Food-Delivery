@@ -297,8 +297,13 @@ window.addEventListener('DOMContentLoaded', () => {
         slidesWrapper = document.querySelector('.offer__slider-wrapper'),
         slidesField = document.querySelector('.offer__slider-inner'),
         width = window.getComputedStyle(slidesWrapper).width;
+
     let slideIndex = 1,
             offset = 0;
+
+    function convertToNumber(str) {
+        return +str.replace(/\D/g, '');
+    }
 
     function showCurrentIndex() {
         if (slideIndex < 10) {
@@ -350,10 +355,10 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     next.addEventListener('click', () => {
-        if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) { // e.g. width = '650px' => need number
+        if (offset == convertToNumber(width) * (slides.length - 1)) {
             offset = 0;
         } else {
-            offset += +width.slice(0, width.length - 2);
+            offset += convertToNumber(width);
         }
 
         slidesField.style.transform = `translateX(-${offset}px)`;
@@ -370,9 +375,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     prev.addEventListener('click', () => {
         if (offset == 0) { 
-            offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+            offset = convertToNumber(width) * (slides.length - 1);
         } else {
-            offset -= +width.slice(0, width.length - 2);
+            offset -= convertToNumber(width);
         }
 
         slidesField.style.transform = `translateX(-${offset}px)`;
@@ -391,7 +396,7 @@ window.addEventListener('DOMContentLoaded', () => {
         dot.addEventListener('click', (e) => {
             const slideTo = e.target.getAttribute('data-slide-to');
             slideIndex = slideTo;
-            offset = +width.slice(0, width.length - 2) * (slideTo - 1);
+            offset = convertToNumber(width) * (slideTo - 1);
             slidesField.style.transform = `translateX(-${offset}px)`;
 
             showCurrentIndex();
