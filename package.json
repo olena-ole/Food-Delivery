@@ -16,7 +16,18 @@
     "url": "https://github.com/olena-ole/Food-Delivery/issues"
   },
   "homepage": "https://github.com/olena-ole/Food-Delivery#readme",
+  "browserslist": [
+    "> 1%"
+  ],
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "babel-loader": "^8.2.3",
+    "core-js": "^3.19.1",
     "json-server": "^0.17.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1"
   }
 }
